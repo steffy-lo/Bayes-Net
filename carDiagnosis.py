@@ -386,45 +386,45 @@ car = BN('Car Diagnosis',
          [al, cs, ba, bv, mf, ds, pv, sm, ss, hl,   sp,  sq,  cc,  tm,  fs,  af, asys, st], 
          [F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, F13, F14, F15, F16, F17, F18])
 
-# def q1(bn):
-#     # p(pv = strong | bv = good) =
-#     # p(pv = strong | bv = good, ba = new) =
-#     # p(pv = strong | bv = good, ba = old) =
-#     # p(pv = strong | bv = good, ba = very old)
-#     bv.set_evidence('strong')
-#     n0 = VE(bn, pv, [bv])
-#     bv.set_evidence('strong')
-#     ba.set_evidence('new')
-#     n1 = VE(bn, pv, [bv, ba])
-#     bv.set_evidence('strong')
-#     ba.set_evidence('old')
-#     n2 = VE(bn, pv, [bv, ba])
-#     bv.set_evidence('strong')
-#     ba.set_evidence('very_old')
-#     n3 = VE(bn, pv, [bv, ba])
-#     print(n0[0], '=', n1[0], '=', n2[0], '=', n3[0])
-#
-# def q2(bn):
-#     # Let v1 = starter motor, v2 = starter system, v3 = battery voltage
-#     # p(sm = okay | bv = strong) = p(sm = okay)
-#     # p(bv = strong | sm = okay) = p(bv = strong)
-#     # HOWEVER!
-#     # p(sm = okay | bv = strong, ss = okay) != p(sm = okay | ss = okay)
-#     bv.set_evidence('strong')
-#     n0 = VE(bn, sm, [bv])
-#     n1 = VE(bn, sm, [])
-#     sm.set_evidence('okay')
-#     n2 = VE(bn, bv, [sm])
-#     n3 = VE(bn, bv, [])
-#     bv.set_evidence('strong')
-#     ss.set_evidence('okay')
-#     n4 = VE(bn, pv, [bv, ss])
-#     ss.set_evidence('okay')
-#     n5 = VE(bn, pv, [ss])
-#     print(n0[0], '=', n1[0])
-#     print(n2[0], '=', n3[0])
-#     print("HOWEVER...")
-#     print(n4[0], '!=', n5[0])
+def q1(bn):
+    # p(pv = strong | bv = good) =
+    # p(pv = strong | bv = good, ba = new) =
+    # p(pv = strong | bv = good, ba = old) =
+    # p(pv = strong | bv = good, ba = very old)
+    bv.set_evidence('strong')
+    n0 = VE(bn, pv, [bv])
+    bv.set_evidence('strong')
+    ba.set_evidence('new')
+    n1 = VE(bn, pv, [bv, ba])
+    bv.set_evidence('strong')
+    ba.set_evidence('old')
+    n2 = VE(bn, pv, [bv, ba])
+    bv.set_evidence('strong')
+    ba.set_evidence('very_old')
+    n3 = VE(bn, pv, [bv, ba])
+    print(n0[0], '=', n1[0], '=', n2[0], '=', n3[0])
+
+def q2(bn):
+    # Let v1 = starter motor, v2 = starter system, v3 = battery voltage
+    # p(sm = okay | bv = strong) = p(sm = okay)
+    # p(bv = strong | sm = okay) = p(bv = strong)
+    # HOWEVER!
+    # p(sm = okay | bv = strong, ss = okay) != p(sm = okay | ss = okay)
+    bv.set_evidence('strong')
+    n0 = VE(bn, sm, [bv])
+    n1 = VE(bn, sm, [])
+    sm.set_evidence('okay')
+    n2 = VE(bn, bv, [sm])
+    n3 = VE(bn, bv, [])
+    bv.set_evidence('strong')
+    ss.set_evidence('okay')
+    n4 = VE(bn, pv, [bv, ss])
+    ss.set_evidence('okay')
+    n5 = VE(bn, pv, [ss])
+    print(n0[0], '=', n1[0])
+    print(n2[0], '=', n3[0])
+    print("HOWEVER...")
+    print(n4[0], '!=', n5[0])
 
 def q3(bn):
     n0 = VE(bn, pv, [])
@@ -456,18 +456,18 @@ def q4(bn):
 
 if __name__ == '__main__':
 
-    # for v in [al, cs, ba, bv, mf, ds, pv, sm, ss, hl,   sp,  sq,  cc,  tm,  fs,  af, asys, st]:
-    #     print("Variable:", v.name)
-    #     probs = VE(car, v, [])
-    #     doms = v.domain()
-    #     for i in range(len(probs)):
-    #         print("P({0:} = {1:}) = {2:0.1f}".format(v.name, doms[i], 100*probs[i]))
-    #     print()
+    for v in [al, cs, ba, bv, mf, ds, pv, sm, ss, hl,   sp,  sq,  cc,  tm,  fs,  af, asys, st]:
+        print("Variable:", v.name)
+        probs = VE(car, v, [])
+        doms = v.domain()
+        for i in range(len(probs)):
+            print("P({0:} = {1:}) = {2:0.1f}".format(v.name, doms[i], 100*probs[i]))
+        print()
 
-    # print('a)')
-    # q1(car)
-    # print('b)')
-    # q2(car)
+    print('a)')
+    q1(car)
+    print('b)')
+    q2(car)
     print('c)')
     q3(car)
     print('d)')
